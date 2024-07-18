@@ -101,3 +101,19 @@ my_project/
 5. **Run the development server**:
    ```bash
    python manage.py runserver
+   ```
+
+## Usage
+
+Explain how to use your project, including any necessary commands or settings.
+
+## Contributing
+
+Provide guidelines on how others can contribute to your project. Include details on how to submit pull requests, report issues, etc.
+
+## License
+
+State the license under which your project is distributed. For example:
+
+```
+MIT License
