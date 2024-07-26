@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+{% load humanize %}
+{% block title %}
+  Checkout
+{% endblock %}
+{% block content %}
+
+  <h1>سبد خرید</h1>
+  <div class="order-info">
+
+    <ul>
+      <li><h3>سفارش شما</h3></li>
+      {% for item in cart %}
+        <li style="box-shadow: 2px 2px 4px olive;">
+          {{ item.quantity }}x {{ item.product.name }}
+          <span>ریال{{ item.total_price |intcomma }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+    <h4>جمع کل: تومان{{ cart.get_total_price  |intcomma}}</h4>
+  </div>
+  <div class="order-info">
+    <form method="post" class="order-form">
+      <ul>
+        <li>نام:<br>{{form.first_name}}</li>
+        <li>نام خانوادگی:<br>{{form.last_name}}</li>
+        <li>ايميل:<br>{{form.email}}</li>
+        <li>آدرس:<br>{{form.address}}</li>
+        <li>کد پستی:<br>{{form.postal_code}}</li>
+        <li>تلفن همراه:<br>{{form.phone}}</li>
+        <li>شهر:<br>{{form.city}}</li>
+      </ul>
+      <p><input type="submit" value="ثبت سفارش" style="background:darkgreen;color:#fff;width:150px;margin-right:50px;"></p>
+      {% csrf_token %}
+    </form>
+  </div>
+{% endblock %}
