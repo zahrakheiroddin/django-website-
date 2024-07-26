@@ -1,0 +1,40 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+{% block content %}
+<center>
+  {% if prolist %}
+  {% for i in prolist %}
+
+
+      <a href="{{ i.get_absolute_url }}">
+        <img src="{% if i.image %}{{ i.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+      </a><br>
+      <a href="{{ i.get_absolute_url }}">{{ i.name }}</a>
+      <br>
+        {% if user.is_authenticated %}
+        {% if i.number == 0 %}
+          <p>موجود نیست</p>
+        {% endif %}
+              {% if i.baseprice != i.price %}
+              {{i.baseprice|intcomma}}ریال<br>
+              {{i.discount}}%<br>
+              {{i.price|intcomma }} ریال<br>
+              {%else%}
+              {{i.price|intcomma }} ریال<br>
+              {% endif %}
+        {% endif %}
+        خودرو:{{i.category}}<br>
+         برند:{{i.Brand}} <br>
+        کد: {{i.codenum}}<br>
+
+  {% endfor %}
+  {% else %}
+    <p>جستجو نتیجه ای نداشت </p>
+  {% endif %}
+</center>
+
+{% endblock %}

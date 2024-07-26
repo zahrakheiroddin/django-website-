@@ -1,0 +1,90 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<div class="detail-body">
+  <div class="detail-up">
+    <div class="detail-up-img">
+      <img src="{% if product.image %}{{ product.image.url }}{% else %}
+    {% static 'images/no_image.png' %}{% endif %}">
+    </div>
+    <div class="detail-up-info">
+      <ul>
+        <li>نام محصول:<h3>{{ product.name }}</h3></li>
+        <li>خودرو: {{ product.category }}</li>
+        <li>برند: {{ product.Brand }} </li>
+        <li>كد كالا:  {{ product.codenum }}</li>
+        <li>كشور سازنده :   {% if product.country != none %}{{ product.country }} {% else %} _ {% endif %}</li>
+        <li>سايز:   {% if product.country != none %} {{ product.size }} {% else %} _ {% endif %} </li>
+        <li><p class="price">تومان{{ product.price |intcomma}}</p></li>
+        {% if product.number != 0 %}
+        <li><p style="color: green;"> {{product.number}} عدد در انبار موجود است</p>  </li>
+        <li>
+          {% if user.is_authenticated %}
+          <form action="{% url 'cart:cart_add' product.id %}" method="post">
+            {{ cart_product_form }}
+            {% csrf_token %}
+            <input type="submit" value="افزودن به سبد خرید">
+          </form>
+          {% else %}
+          <h2>برای خرید وارد شوید</h2>
+          {% endif %}
+        </li>
+        {% else %}
+        <li><p style="color: red;">كالا در انبار موجود نيست</p></li>
+        {% endif %}
+
+      </ul>
+    </div>
+  </div>
+  <div class="detail-down">
+    <div class="detail-description">
+      <div class="detail-down-label">
+        <h2>توضيحات</h2>
+      </div>
+      <div class="detail-down-text">
+        <h4>{{ product.description|linebreaks }}</h4>
+      </div>
+    </div>
+    <div class="comments">
+      <div class="comment-header">
+        {% with comments.count as total_comments %}
+        <h2>
+        {{ total_comments }} نظرها {{ total_comments|pluralize }}
+        </h2>
+        {% endwith %}
+      </div>
+      <div class="comment-body">
+        {% for comment in comments %}
+          <div class="comment">
+            <p class="info">
+           نظر{{ forloop.counter }} با  {{ comment.name }}
+            {{ comment.created }}
+            </p>
+            {{ comment.body|linebreaks }}
+          </div>
+        {% empty %}
+          <p>هنوز نظری وجود ندارد</p>
+        {% endfor %}
+      </div>
+      <div class="coment-post">
+        {% if new_comment %}
+          <h2>نظر شما اضافه شد.</h2>
+        {% else %}
+        <h2>نظر جدیدی اضافه کنید</h2>
+        <form method="post">
+        {{ comment_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="ثبت نظر"></p>
+        </form>
+       {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

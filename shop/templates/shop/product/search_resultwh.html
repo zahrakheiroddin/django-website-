@@ -1,0 +1,83 @@
+{% extends "shop/base.html" %}
+{% block title %}سرچ{% endblock %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+
+<div class="searchb">
+  <form class="" action="{% url 'shop:searwho' %}" method="post">
+    {% csrf_token %}
+
+    {{searchform.searchtxt}}
+  <button type="button" name="button">
+    <i class="fa fa-search" aria-hidden="true"></i>
+  </button>
+  </form>
+</div>
+<div class="pbox">
+  <div class="box1">
+      <p>خرید</p>
+  </div>
+  <div class="box">
+    <p>قیمت عمده</p>
+  </div>
+  <div class="box">
+    <p>کد کالا</p>
+  </div>
+  <div class="box">
+      <p>سایز</p>
+  </div>
+  <div class="box">
+      <p>خودرو</p>
+  </div>
+  <div class="box">
+      <p>دسته بندی</p>
+  </div>
+  <div class="box">
+      <p>نام</p>
+  </div>
+  <div class="box3">
+      <p>تصویر</p>
+  </div>
+</div>
+
+{% for i in prolist %}
+<div class="pbox">
+  <div class="box1">
+    <form action="{% url 'cart:cart_add_h' i.id %}" method="post">
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="افزودن به سبد خرید">
+      </form>
+  </div>
+  <div class="box">
+    <p>{{i.wholesale_price|intcomma}}</p>
+  </div>
+  <div class="box">
+    <p>{{i.codenum}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.size}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.Brand}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.category}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.name}}</p>
+  </div>
+  <div class="box3">
+    {% if i.image %}
+        <img src="{{ i.image.url }}">
+    {% else %}
+      {% static 'img/no_image.png' %}
+    {% endif %}
+  </div>
+</div>
+  {% endfor %}
+<br>
+
+
+{% endblock %}

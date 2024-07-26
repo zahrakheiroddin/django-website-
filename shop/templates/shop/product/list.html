@@ -1,0 +1,436 @@
+{% extends "shop/base.html" %}
+{% load blog_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+<p class="d-none">DOBICHO</p>
+{% endblock %}
+{% block content %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+      <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="0">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1 style="font-family: IRANSans;">خوش آمدید به  <span>دوبيچو</span></h1>
+          <h2 style="font-family: IRANSans;">فروشگاه اینترنتی دوبیچو برندی جهانی با مدیریت شکاریان در خدمت شما دوستان است</h2>
+
+          <div class="btns">
+            <a href="{% url 'shop:mahsol' %}" class="btn-menu animated fadeInUp scrollto">همه محصولات</a>
+            <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">ارسال نظرات</a>
+          </div>
+        </div>
+        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+          <a href="#menu" class="glightbox play-btn"></a>
+        </div>
+
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- =======تخفيف دار ها =======-->
+    <section  class="chefs">
+
+      <div class="container" data-aos="fade-up">
+
+
+      {% show_discont_posts %}
+
+      </div>
+    </section><!-- End Chefs Section -->
+      <!-- ======= تخفيف ======= اصلاح شود-->
+      <section id="chefs" class="chefs">
+        <div class="container" data-aos="fade-up">
+
+          {% show_sell_posts %}
+
+        </div>
+      </section><!-- End Chefs Section -->
+
+
+    <!-- ======= About Section =======
+    <section id="about" class="about">
+=======
+
+    <!-- ======= Specials Section ======= -->
+    <section id="specials" class="specials">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>BRAND</h2>
+          <p>برند</p>
+        </div>
+
+        <div class="row" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-3">
+            <ul class="nav nav-tabs flex-column">
+              {% for brand in Brands %}
+              {% if forloop.counter == 1 %}
+              <li class="nav-item">
+                <a class="nav-link active show"  href="{{brand.get_absolute_url }}">{{ brand.name }}</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link"  href="{{brand.get_absolute_url }}">{{ brand.name }}</a>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-lg-9 mt-4 mt-lg-0">
+            <div class="tab-content">
+              {% for brand in Brands %}
+              {% if forloop.counter == 1 %}
+              <div class="tab-pane active show" id="tab-{{brand.id}}">
+                <div class="row">
+                  <a href="{{brand.get_absolute_url }}">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+
+                    <h3>{{ brand.name }}</h3>
+                    <p class="fst-italic">{{ brand.description|linebreaks }}</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+
+                      <img src="{% if brand.image %}{{ brand.image.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}" alt="" class="img-fluid">
+                    </a>
+                  </div>
+                </div>
+              </div>
+              {% else %}
+              <div class="tab-pane" id="tab-{{brand.id}}">
+                <div class="row">
+                  <a href="{{brand.get_absolute_url }}">
+                  <div class="col-lg-8 details order-2 order-lg-1">
+
+                    <h3>{{ brand.name }}</h3>
+                    <p class="fst-italic">{{ brand.description|linebreaks }}</p>
+                  </div>
+                  <div class="col-lg-4 text-center order-1 order-lg-2">
+
+                      <img src="{% if brand.image %}{{ brand.image.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}" alt="" class="img-fluid">
+                  </a>
+                  </div>
+                </div>
+              </div>
+              {% endif %}
+
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Specials Section -->
+
+    <section id="menu" class="menu section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>دسته بندی</h2>
+          <p>خودرو</p>
+        </div>
+        <div class="row menu-container" data-aos="fade-up" data-aos-delay="200">
+          {% for c in categories %}
+            <div class="col-lg-6 menu-item {% cycle 'filter-starters' 'filter-specialty' %}">
+              <a href="{{c.get_absolute_url }}">
+              <img src="{% if c.image %}{{ c.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" class="menu-img" alt="">
+              <div class="menu-content">
+                {{ c.name }}
+              </div>
+              <div class="menu-ingredients">
+                {{c.carcompany}}
+              </div>
+              </a>
+            </div>
+          {% endfor %}
+      <!--    <div class="col-lg-6 menu-item filter-specialty">
+            <img src="assets/img/menu/bread-barrel.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">رانا</a>
+            </div>
+            <div class="menu-ingredients">
+            ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-starters">
+            <img src="assets/img/menu/cake.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">پژو 206 تیپ 2</a>
+            </div>
+            <div class="menu-ingredients">
+            ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-salads">
+            <img src="assets/img/menu/caesar.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">پژو 207</a>
+            </div>
+            <div class="menu-ingredients">
+            ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-specialty">
+            <img src="assets/img/menu/tuscan-grilled.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">رانا پلاس</a>
+            </div>
+            <div class="menu-ingredients">
+              ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-starters">
+            <img src="assets/img/menu/mozzarella.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">سورن ELX</a>
+            </div>
+            <div class="menu-ingredients">
+              ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-salads">
+            <img src="assets/img/menu/greek-salad.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">پارس سال</a>
+            </div>
+            <div class="menu-ingredients">
+              ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-salads">
+            <img src="assets/img/menu/spinach-salad.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">پژو 206 صندوق دار</a>
+            </div>
+            <div class="menu-ingredients">
+              ایران خودرو
+            </div>
+          </div>
+
+          <div class="col-lg-6 menu-item filter-specialty">
+            <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
+            <div class="menu-content">
+              <a href="#">پژو 405 بنزینی</a>
+            </div>
+            <div class="menu-ingredients">
+              ایران خودرو
+            </div>
+          </div>
+
+        </div>
+      -->
+      </div>
+    </section><!-- End Menu Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
+            <div class="about-img">
+              <img src="{% static 'assets/img/about.jpg' %}" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+            <h3>دوبيچو</h3>
+            <p class="fst-italic">
+پیش زمینه تجاریِ شرکت دوبیچو
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i>گروه تجاری شکاریان در سال 1993 تحت عنوان شرکت لوازم یدکی شکاریان در امارات متحده تاسیس گردید ، ایده ی اصلی آن
+              فراهم کردن مشاوره و سرویس دهی به مشتریان در واحد های مختلف با کیفیت و درجه یک بود
+              در مدت دو دهه شرکت شکاریان سهم قابل توجهی را در میان شرکت های مطرح در بازار آفریقا و خاورمیانه پیدا کرد در
+              طول این سال ها این شرکت همواره خدمات پایدار و متمرکزی را از لحاظ بهره وری و کیفیت ارائه نمود
+              شرکت شکاریان تحت نظارت عده ی قابل توجهی از متخصصین مسیر پیشرفت خود را پیدا کرد، کسانی که دانش عالی در زمینه
+              فنی و تجاری به همراه داشتند. و در مرحله ی بعدی پس از شکوفایی به کمک تیم فنی و تجاری خود این شرکت توانست
+              واردات قابل توجهی را از کشورهای فرانسه و آلمان به عمل آورد
+              شرکت شکاریان با استفاده از دانش مطلوب از محصول توانست در بازار به طور مطلوبی به پیشرفت برسد و خود را هماهنگ
+              با بازارهای توسعه یافته ی جهانی نماید
+              شرکت دوبیچو مفتخر است که قطعاتی با بالاترین کیفیت را برای مشتریان عزیز فراهم نماید ، این شرکت به خوبی در بازار شناخته شده است
+              به طوری که ما بین فروشندگان قطعات و همچنین تولید کنندگان روابط بسیار زیادی دارد و برندی شناخته شده در بازار روز می باشد
+              این شرکت در زمینه فراهم کردن قطعات یدکی خودرو از اصلی ترین تا کوچک ترین قطعات را می تواند فراهم نماید
+              درسال 2006 این شرکت بخش قطعات خطوط نفتی و لوازم مربوطه را به گستره ی فعالیتی خود اضافه کرده و همچنین در زمینه ی
+              اتوماسیون صنعتی سیستم ها و نگهداری آن ها خدمات شایانی را ارائه نمود. همچنین شرکت ما مفتخر است در زمینه ی اتوماسیون
+              و سیستم های کنترلی و الکترونیکی در کنار زمینه ی اصلی فعالیت خود یعنی قطعات یدکی خودرو به مشتریان محصول ارائه کند</li>
+            </ul>
+            <p>
+            با تشکر از همراهی شما
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>چرا ما</h2>
+          <p>چرا دوبيچو</p>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-4">
+            <div class="box" data-aos="zoom-in" data-aos-delay="100">
+              <span>01</span>
+              <h4>قیمت عالی</h4>
+              <p>با توجه به این که گروه ما نمایندگی اصلی ایساکو هست توان دادن قیمت های دست اول را دارد</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="box" data-aos="zoom-in" data-aos-delay="200">
+              <span>02</span>
+              <h4>قطعات با کیفیت</h4>
+              <p>این قطعات اصلی است و از خود شرکت تهیه می شود از این جهت می توانید به فروشگاه ما اعتماد کنید</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="box" data-aos="zoom-in" data-aos-delay="300">
+              <span>03</span>
+              <h4>با سابقه</h4>
+              <p>با توجه به این که مدیران دارای سابقه ی بسیار بالا هستند در نتیجه هر کالایی را به مشتریان محترم معرفی نمی کنند</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>مقالات</h2>
+          <p>مقالات</p>
+        </div>
+
+        <div class="events-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+            {% for post in posts %}
+            <div class="swiper-slide">
+              <div class="row event-item">
+                <div class="col-lg-6">
+                  <img src="{% if post.image %}{{ post.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" class="img-fluid" alt="{{post.title}}">
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 content" >
+                  <h3>{{post.title}}</h3>
+                  <div class="price">
+                    <p><span>{{post.publish}}</span></p>
+                  </div>
+                  <p class="fst-italic">
+                    {{post.body|linebreaks}}
+                  </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            {% endfor %}
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Events Section -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>ارتباط با ما</h2>
+          <p>تماس با ما</p>
+        </div>
+      </div>
+
+
+
+      <div class="container" data-aos="fade-up">
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>آدرس:</h4>
+                <p>شیراز بلوار عدالت شمالی نبش کوچه ۱۲ فروشگاه شکاریان
+</p>
+              </div>
+
+              <div class="open-hours">
+                <i class="bi bi-clock"></i>
+                <h4>ساعات حضور در فروشگاه:</h4>
+                <p>
+                  شنبه تا پنجشنبه:<br>
+                  8:30 - 6:30
+                </p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>ایمیل:</h4>
+                <p>gm@shekarian.org </p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>تماس:</h4>
+                <p>o7138305013,07138305012,09906784074 </p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="{% url 'shop:opinion' %}" method="post" role="form" class="php-email-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  {{opinion.name}}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  {{opinion.email}}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                {{opinion.title}}
+              </div>
+              <div class="form-group mt-3">
+                {{opinion.body}}
+              </div>
+              <div class="my-3">
+                <div class="loading">بارگیری</div>
+                <div class="error-message" ></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">ارسال پیام</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}

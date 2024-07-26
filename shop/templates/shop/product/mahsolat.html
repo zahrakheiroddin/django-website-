@@ -1,0 +1,56 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+محصولات ميهن موتور
+{% endblock %}
+{% block content %}
+  <main id="main">
+    <section class="breadcrumbs">
+      <div class="container">
+
+
+
+      </div>
+    </section>
+
+    <section class="inner-page">
+      <div class="container">
+        <section id="chefs" class="chefs">
+          <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+              <h2>کالاها</h2>
+            </div>
+            <div class="row">
+              {% for product in products %}
+            <div class="col-lg-4 col-md-6">
+              <a href="{{ product.get_absolute_url }}">
+              <div class="member" data-aos="zoom-in" data-aos-delay="100">
+                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}" class="img-fluid" alt="{{ product.name }}">
+                <div class="member-info">
+                  <div class="member-info-content">
+                    <h4>{{ product.name }}</h4>
+                    <h5> قيمت:{{product.price}} </h5>
+                    <h6>تخفيف:{{product.discount}}</h6>
+                    {% if product.number == 0 %}
+                    <h6>ناموجود</h6>
+                    {% endif %}
+
+                  </div>
+
+                </div>
+
+              </div>
+              </a>
+            </div>
+            {% endfor %}
+
+
+          </div>
+        </section>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+{% endblock %}

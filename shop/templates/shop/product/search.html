@@ -1,0 +1,6 @@
+<form class="" action="{% url 'shop:searchb' %}" method="post">
+{% csrf_token %}
+<div class="" style="display: flex;color:black;">
+  {{searchform.searchtxt}}
+</div>
+</form>

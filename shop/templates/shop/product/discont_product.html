@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  </head>
+  <body style="width: 100vw;">
+    <h2>محصولات تخفیف دار</h2>
+      <a href="{% url 'shop:discount' %}">مشاهده همه</a>
+    <div class="discontt">
+
+
+    {% for i in data %}
+
+    <div class="col-6 col-md-4">
+        <div class="contentbox">
+          <header>
+            <figure>
+              <a href="{{ i.product.get_absolute_url }}"><img src="{% if i.product.image %}{{ i.product.image.url }}{% else %}{% static 'images/no_image.png' %}{% endif %}"></a>
+              <h4>{{ i.product}}</h4>
+              <h2>:{{i.produc.price}}</h2>
+              :{{i.product.discount}}تخفیف
+            </figure>
+          </header>
+          <div class="pricebox">
+      <a class="pricebox" href="{{ i.product.get_absolute_url }}">برای ورود کلیک کنید</a></div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  </body>
+</html>
