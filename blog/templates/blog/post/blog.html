@@ -1,0 +1,48 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div id="sidebar">
+    <center>
+  <h3 style="direction: rtl;">اخبار دوبیچو</h3>
+  </center>
+  <ul>
+
+    {% for c in posts %}
+      <li>
+        <a href="{{ c.get_absolute_url }}">
+          <div class="catlist">
+
+            <img src="{% if c.image %}{{c.image.url}}{% else %}{% static 'img/no_image.png' %}{% endif %}" width="50px" height="50px" alt="">
+            {{ c.title }}
+          </div>
+
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div id="main" class="product-list">
+
+  {% for c in posts %}
+
+  <div class="item">
+
+
+    <a href="{{ c.get_absolute_url }}">
+      <img src="{% if c.image %}{{ c.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+    </a>
+    <div class="itemtext">
+    <a href="{{ c.get_absolute_url }}">{{c.title}}</a>
+    <p>{{ c.body|truncatewords:15|linebreaks }}</p>
+    </div>
+  </div>
+  </div>
+
+  {% endfor %}
+
+
+  </div>
+{% endblock %}

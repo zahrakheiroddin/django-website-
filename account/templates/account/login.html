@@ -1,0 +1,57 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}p_login{% endblock %}
+{% block content %}
+
+  <main id="main">
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+
+          <ol>
+            <li><a href="index.html">خانه</a></li>
+
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section class="inner-page">
+      <div class="inner-page1">
+      <div id='container_login'class="container">
+        <div class="container-fluid">
+        <div class="row no-gutter">
+            <div class="col-md-6 d-none d-md-flex bg-image">
+                <img src="{% static 'images/JH3Ap7.jpg' %}" alt="">
+            </div>
+            <div style="background:url({% static 'images/edit_back.jpg' %}) no-repeat;" class="col-md-6 bg-light">
+                <div class="login d-flex align-items-center py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-xl-6 mx-auto">
+                                <h3 class="display-4">ورود</h3>
+                                 <br>
+                                {% if mess %}
+                                  <h6  style="color:red;">{{mess}}</h6>
+                                {% endif %}
+                                <form  action="{% url 'account:login' %}" method="post">
+                                    <div class="form-group mb-3">{{form.username }}</div> <!--<input id="inputEmail" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4"> </div>-->
+                                    <div class="form-group mb-3">{{form.password}}<br></div>
+                                    <h1>siavash<h1>
+                                    {% csrf_token %}
+                                    <div class="custom-control custom-checkbox mb-3"><input id="customCheck1" type="checkbox" checked class="custom-control-input"> <label for="customCheck1" class="custom-control-label"><a href="{% url 'account:password_reset' %}">ذخیره پسورد</a></label> </div> <button type="submit" class="btn btn-danger btn-block text-uppercase mb-2 rounded-pill shadow-sm">ورود</button>
+                                    <div class="text-center d-flex justify-content-between mt-4">
+                                        <p> <a href=" " class="font-italic text-muted"> <u>ایجاد پروفایل </u></a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      </div>
+      </div>
+    </section>
+  </main><!-- End #main -->
+{% endblock %}

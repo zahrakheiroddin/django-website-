@@ -1,0 +1,23 @@
+{% extends "shop/base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+  <h1>ورود</h1>
+  {% if form.errors %}
+  <p>
+ نام کاربری و رمز ورود شما مطابقت ندارد.
+  لطفا دوباره تلاش کنید
+  </p>
+  {% else %}
+    <p>لطفاً برای ورود به سیستم از فرم زیر استفاده کنید</p>
+  {% endif %}
+<div class="login-form">
+  <form action="{% url 'account:login' %}" method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}" />
+      <p><input type="submit" value="Log-in"></p>
+    </form>
+    <p><a href="{% url 'account:password_reset' %}">فراموشی رمز عبور</a></p>
+  </div>
+
+{% endblock %}

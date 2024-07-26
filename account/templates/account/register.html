@@ -1,0 +1,148 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+create user
+{% endblock %}
+{% block content %}
+<link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/apple-icon.png' %}">
+<link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}">
+
+<!--     Fonts and icons     -->
+
+<!-- CSS Files -->
+  <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/gsdk-bootstrap-wizard.css' %}" rel="stylesheet" />
+
+<!-- CSS Just for demo purpose, don't include it in your project -->
+<link href="{% static 'assets/css/demo.css' %}" rel="stylesheet" />
+
+<div class="creat_account" >
+
+
+<div class="image-container set-full-height" style="background-image: url('{% static 'assets/img/wizard.jpg' %}')">
+    <!--   Creative Tim Branding   -->
+
+
+	<!--  Made With Get Shit Done Kit  -->
+		<a href="http://demos.creative-tim.com/get-shit-done/index.html?ref=get-shit-done-bootstrap-wizard" class="made-with-mk">
+			<div class="brand">GK</div>
+			<div class="made-with">Made with <strong>GSDK</strong></div>
+		</a>
+
+    <!--   Big container   -->
+    <div class="container">
+        <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+
+            <!--      Wizard container        -->
+            <div class="wizard-container">
+
+                <div class="card wizard-card" data-color="orange" id="wizardProfile">
+
+                <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+
+                    	<div class="wizard-header">
+                        	<h3>
+                        	   <b>بساز</b>حساب کاربری<br>
+                             {% if mess %}
+                              <h3 style="color: darkred;">{{mess}}</h3>
+                            {% else %}
+                        	   <small>تمام این اطلاعات جهت ارتباط ما با شما و دادن تخفیف های ویژه به شما دوست عزیز می باشد</small>
+                             {% endif %}
+                        	</h3>
+                    	</div>
+
+						<div class="wizard-navigation">
+							<ul>
+	                            <li><a href="#about" data-toggle="tab">ایجاد حساب</a></li>
+
+	                           <!-- <li><a href="#address" data-toggle="tab">آدرس</a></li>-->
+	            </ul>
+
+						</div>
+            <form action="{% url 'account:register' %}" method="post">
+                        <div class="tab-content">
+
+                            <div class="tab-pane" id="about">
+
+                              <div class="row">
+
+                                  {% for error in user_form.errors %}
+                                    <p style="color: red">{{ error }}</p>
+                                  {% endfor %}
+                                  <div class="col-sm-6">
+                                      <div class="form-group">
+                                        <label>نام کاربری <small></small></label>
+                                        {{user_form.username}}
+                                        <!--<input name="firstname" type="text" class="form-control" placeholder="Andrew...">-->
+                                      </div>
+                                      <div class="form-group">
+                                        <label>نام<small></small></label>
+                                        {{user_form.first_name}}
+                                        <!--<input name="lastname" type="text" class="form-control" placeholder="Smith...">-->
+                                      </div>
+                                      <div class="form-group">
+                                        <label>رمز عبور <small></small></label>
+                                        {{user_form.password}}
+                                        <!--<input name="lastname" type="text" class="form-control" placeholder="Smith...">-->
+                                      </div>
+                                      <div class="form-group">
+                                        <label>تکرار رمز عبور <small></small></label>
+                                        {{user_form.password2}}
+                                        <!--<input name="lastname" type="text" class="form-control" placeholder="Smith...">-->
+                                      </div>
+                                  </div>
+                                  <div class="col-sm-10 col-sm-offset-1">
+                                      <div class="form-group">
+                                          <label>ایمیل <small></small></label>
+                                          {{user_form.email}}
+                                          <!--<input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">-->
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+
+                        </div>
+                        <div class="wizard-footer height-wizard">
+                            <div class="pull-right">
+                               {% csrf_token %}
+                                <button type="submit" name="button" class='btn btn-finish btn-fill btn-warning btn-wd btn-sm' >ایجاد</button>
+
+                            </div>
+
+                            <div class="pull-left">
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+  </form>
+
+                </div>
+            </div> <!-- wizard container -->
+        </div>
+        </div><!-- end row -->
+    </div> <!--  big container -->
+
+    <div class="footer">
+        <div class="container">
+             Made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>. Free download <a href="http://www.creative-tim.com/product/bootstrap-wizard">here.</a>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+	<!--   Core JS Files   -->
+	<script src="{% static 'assets/js/jquery-2.2.4.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'assets/js/jquery.bootstrap.wizard.js' %}" type="text/javascript"></script>
+
+	<!--  Plugin for the Wizard -->
+	<script src="{% static 'assets/js/gsdk-bootstrap-wizard.js' %}"></script>
+
+	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+	<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+
+{% endblock %}

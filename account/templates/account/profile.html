@@ -1,0 +1,173 @@
+{% extends "shop/base.html" %}
+{% block title %}پروفایل{% endblock %}
+{% block content %}
+{% load static %}
+{% load humanize %}
+<section class="inner-page">
+  <div class="container">
+<div class="container emp-profile">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            {% if data.photo %}
+                            <img src="{{data.photo.url}}" alt="شما عکسی برای پروفایل خود انتخاب نکردید"/>
+                            {% else %}
+                            {% static 'img/no_image.png' %}
+                            {% endif %}
+                            <div class="btn btn-lg btn-primary">
+                                <a href="{% url 'account:edit' %}"> تغيير تصوير </a>
+                                <button type="button" name="button"><a href="{% url 'account:edit' %}"> تغيير تصوير</a></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                      {% if data.first_name %}
+                                        {{data.first_name}}  {{data.last_name}}
+                                      {% else %}
+                                        {{data.user}}
+                                      {% endif %}
+                                    </h5>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">درباره</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="button" name="button"> <a href="{% url 'account:edit' %}">ويرايش پروفايل</a></button>
+                    </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>ايدي كاربر</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{data.id}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>نام كاربري</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{data.user}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>آدرس</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{data.adress}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                          {% if pass %}
+                                            <p>این فیلد مخصوص همکاران است </p>
+                                            <form class="" action="{% url 'account:wholsaler' %}" method="post">
+                                              {% csrf_token %}
+                                              {{pass.hpass}}
+                                              <button type="submit" class="submit font5" name="button">ارسال كد همكار</button>
+                                            </form>
+                                          {% endif %}
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </div>
+        </div>
+</section>
+
+
+
+
+{% if product %}
+<center>
+<a href="{% url 'cart:cart_detail_h' %}"><button type="button" name="button"><h3>سبد خرید عمده</h3></button></a>
+<div class="searchb">
+  <form class="" action="{% url 'shop:searwho' %}" method="post">
+    {% csrf_token %}
+    {{searchform.searchtxt}}
+  <button type="button" name="button">
+    <i class="fa fa-search" aria-hidden="true"></i>
+  </button>
+  </form>
+</div>
+</center>
+
+<div class="pbox">
+  <div class="box1">
+      <p>خرید</p>
+  </div>
+  <div class="box">
+    <p>قیمت عمده</p>
+  </div>
+  <div class="box">
+    <p>کد کالا</p>
+  </div>
+  <div class="box">
+      <p>سایز</p>
+  </div>
+  <div class="box">
+      <p>خودرو</p>
+  </div>
+  <div class="box">
+      <p>دسته بندی</p>
+  </div>
+  <div class="box">
+      <p>نام</p>
+  </div>
+  <div class="box3">
+      <p>تصویر</p>
+  </div>
+</div>
+
+{% for i in product %}
+<div class="pbox">
+  <div class="box1">
+    <form action="{% url 'cart:cart_add_h' i.id %}" method="post">
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="افزودن به سبد خرید">
+      </form>
+  </div>
+  <div class="box">
+    <p>{{i.wholesale_price|intcomma}}</p>
+  </div>
+  <div class="box">
+    <p>{{i.codenum}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.size}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.Brand}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.category}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.name}}</p>
+  </div>
+  <div class="box3">
+    {% if i.image %}
+        <img src="{{ i.image.url }}">
+    {% else %}
+      {% static 'img/no_image.png' %}
+    {% endif %}
+  </div>
+</div>
+  {% endfor %}
+<br>
+{% endif %}
+{% endblock %}

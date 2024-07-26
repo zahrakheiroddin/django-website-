@@ -1,0 +1,6 @@
+{% extends "shop/base.html" %}
+{% block title %}خوش آمدید{% endblock %}
+{% block content %}
+  <h1>خوش آمدید {{ new_user.first_name }}!</h1>
+  <p>حساب کاربری شما با موفقیت ساخته شد. شما می توانید  <a href="{% url 'account:login' %}"> وارد شوید</a>.</p>
+{% endblock %}

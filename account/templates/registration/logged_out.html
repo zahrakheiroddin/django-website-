@@ -1,0 +1,9 @@
+{% extends "shop/base.html" %}
+{% block title %}خروج{% endblock %}
+{% block content %}
+  <h1>خروج</h1>
+  <p>
+   شما با موفقیت از حساب ئاربری خود خارج شدین
+    <a href="{% url 'shop:product_list' %}">خانه</a>
+    شما می تونین <a href="{% url 'account:loginn' %}"> ورود مجدد </a> داشته باشین 
+{% endblock %}

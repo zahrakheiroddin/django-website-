@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static "css/baseaccont.css" %}" rel="stylesheet">
+  </head>
+  <body>
+    <div id="header">
+      <span class="logo">نشانک ها</span>
+      {% if request.user.is_authenticated %}
+        <ul class="menu">
+          <li {% if section == "account:dashboard" %}class="selected"{% endif %}>
+            <a href="{% url "account:dashboard" %}">داشبورد من</a>
+          </li>
+          <li >
+            <a href="{% url 'shop:product_list' %}">خانه</a>
+          </li>
+
+        </ul>
+        {% endif %}
+        <span class="user">
+          {% if request.user.is_authenticated %}
+            Hello {{ request.user.first_name }},
+            <a href="{% url "logout" %}">خارج شوید</a>
+            {% else %}
+              <a href="{% url "login" %}">وارد شوید</a>
+            {% endif %}
+        </span>
+    </div>
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

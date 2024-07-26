@@ -1,0 +1,41 @@
+{% extends "shop/base.html" %}
+{% block title %}ویرایش حساب کاربری{% endblock %}
+{% block content %}
+
+<div class="edit-box">
+  <div class="edit-head">
+    <h1> حساب کاربریتو ویرایش کن</h1>
+    <p>با استفاده از فرم زیر می توانید حساب خود را ویرایش کنید</p>
+    {% if new_user %}
+    {{new_user}}
+    {% endif %}
+  </div>
+  <div class="edit-form">
+    <form method="post" enctype="multipart/form-data">
+      <ul>
+        <li class="nav-item">نام:</li>
+        <li class="nav-item">{{ profile_form.first_name }}</li>
+        <li class="nav-item">نام خانوادگی:</li>
+        <li class="nav-item">{{ profile_form.last_name }}</li>
+        <li class="nav-item">ایمیل:</li>
+        <li class="nav-item">{{ profile_form.email }}</li>
+        <li class="nav-item"> تلفن همراه: </li>
+        <li class="nav-item">{{ profile_form.phone }}</li>
+        <li class="nav-item"> شهر: </li>
+        <li class="nav-item">{{ profile_form.city }}</li>
+        <li class="nav-item"> آدرس: </li>
+        <li class="nav-item">{{ profile_form.address }}</li>
+        <li class="nav-item"> کدپستی: </li>
+        <li class="nav-item">{{ profile_form.postal_code }}</li>
+        <li class="nav-item">تصویر:</li>
+        <li class="nav-item">{{ profile_form.photo }}</li>
+      </ul>
+
+      {% csrf_token %}
+      <p><input type="submit" value="Save changes"></p>
+    </form>
+  </div>
+
+</div>
+
+{% endblock %}

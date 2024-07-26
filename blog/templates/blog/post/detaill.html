@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+
+{% block content %}
+<center>
+<h1>{{post.title}}</h1>
+<hr>
+<p>{{post.publish}}</p>
+<hr>
+
+<div class="detailblogimg">
+  <img src="{{post.image.url}}" alt="{{post.title}}">
+</div>
+<hr>
+<div class="detailblogtext">
+  <p>{{post.body}}</p>
+
+
+</center>
+{% endblock %}

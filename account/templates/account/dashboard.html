@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+  <h1>داشبورد</h1>
+  <p>به داشبوردتون خوش آمدین. شما می تونین   <a href="{% url 'account:edit' %}"> ویرایش پروفایل </a> یا <a href="{% url 'account:password_change' %}"> تغییر رمز  </a>  را انجام دهید </p><<br>
+<div class="">
+  <div class="">
+    {% for i in orders %}
+        {{ forloop.counter }}<br>
+        {{i.first_name}}<br>
+        {{i.last_name}}<br>
+        {{i.email}}<br>
+        {{i.address}}<br>
+        {{i.postal_code}}<br>
+        {{i.phone}}<br>
+        {{i.city}}<br>
+        {{i.created}}<br>
+        {{i.paid}}<br>
+        {{i.braintree_id}}<br>
+        {% endfor %}
+  </div><br><br><br><br>
+  <div class="">
+    {% for i in item %}
+          {% for x in i %}
+            {{x.product}}<br>
+            {{x.price}}<br>
+            {{x.quantity}}<br>
+          {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+
+
+
+
+{% endblock %}
