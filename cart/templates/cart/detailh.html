@@ -1,0 +1,143 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+Your shopping cart
+{% endblock %}
+{% block content %}
+
+<div class="cart-head">
+  <h2>سبد خرید شما</h2>
+  <h4>نام کاربری: {{pro.user}}</h4>
+</div>
+<div class="cart-body">
+  <table class="cart">
+    <thead>
+      <tr>
+        <th>تصویر</th>
+        <th>محصولات</th>
+        <th>تعداد</th>
+        <th>حذف</th>
+        <th>قیمت واحد</th>
+        <th>قیمت</th>
+      </tr>
+    </thead>
+<tbody>
+  {% for item in cart %}
+    {% with product=item.product %}
+      <tr>
+        <td>
+          <a href="{{ product.get_absolute_url }}">
+
+            <img src="{% if product.image %}{{ product.image.url}}
+            {% else %}{% static "img/no_image.png" %}{% endif %}">
+          </a>
+        </td>
+        <td>{{ product.name }}</td>
+        <td>
+          <form action="{% url "cart:cart_add" product.id %}" method="post">
+            {{ item.update_quantity_form.quantity }}
+            {{ item.update_quantity_form.override }}
+            <input type="submit" value="Update">
+            {% csrf_token %}
+          </form>
+        </td>
+        <td>
+          <form action="{% url "cart:cart_remove" product.id %}" method="post">
+            <input type="submit" value="Remove">
+            {% csrf_token %}
+          </form>
+        </td>
+        <td class="num">${{ item.price|intcomma }}</td>
+        <td class="num">${{ item.total_price|intcomma }}</td>
+      </tr>
+      {% endwith %}
+    {% endfor %}
+    <tr class="total">
+      <td>Total</td>
+      <td colspan="4"></td>
+      <td class="num">تومان{{ cart.get_total_price|intcomma }}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+  <div class="cart-btn">
+    <a href="{% url "shop:product_list" %}" class="button light">ادامه خرید</a>
+    <a href="{% url "orders:order_create" %}" class="button">صندوق</a>
+  </div>
+<br>
+<br>
+<form class="" action="{% url 'shop:searwho' %}" method="post">
+  {% csrf_token %}
+
+  {{searchform.searchtxt}}
+<button type="button" name="button">
+  <i class="fa fa-search" aria-hidden="true"></i>
+</button>
+</form>
+<div class="pbox">
+  <div class="box1">
+      <p>خرید</p>
+  </div>
+  <div class="box">
+    <p>قیمت عمده</p>
+  </div>
+  <div class="box">
+    <p>کد کالا</p>
+  </div>
+  <div class="box">
+      <p>سایز</p>
+  </div>
+  <div class="box">
+      <p>خودرو</p>
+  </div>
+  <div class="box">
+      <p>دسته بندی</p>
+  </div>
+  <div class="box">
+      <p>نام</p>
+  </div>
+  <div class="box3">
+      <p>تصویر</p>
+  </div>
+</div>
+
+{% for i in product %}
+<div class="pbox">
+  <div class="box1">
+    <form action="{% url 'cart:cart_add_h' i.id %}" method="post">
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="افزودن به سبد خرید">
+      </form>
+  </div>
+  <div class="box">
+    <p>{{i.wholesale_price|intcomma}}</p>
+  </div>
+  <div class="box">
+    <p>{{i.codenum}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.size}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.Brand}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.category}}</p>
+  </div>
+  <div class="box">
+      <p>{{i.name}}</p>
+  </div>
+  <div class="box3">
+    {% if i.image %}
+        <img src="{{ i.image.url }}">
+    {% else %}
+      {% static 'img/no_image.png' %}
+    {% endif %}
+  </div>
+</div>
+  {% endfor %}
+<br>
+
+{% endblock %}
