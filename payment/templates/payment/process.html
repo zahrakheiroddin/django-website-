@@ -1,0 +1,11 @@
+{% extends "shop/base.html" %}
+{% block title %}Pay by credit card{% endblock %}
+{% block content %}
+  <h1>پرداخت با کارت اعتباری</h1>
+  <form class="" action="{% url 'payment:process' %}" method="post">
+    <h2>بانک سامان</h2>
+    {% csrf_token %}
+    <button type="submit" name="button">پرداخت</button>
+  </form>
+
+{% endblock %}

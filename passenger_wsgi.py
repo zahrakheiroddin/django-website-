@@ -1,0 +1,1 @@
+from dobicho.wsgi import application

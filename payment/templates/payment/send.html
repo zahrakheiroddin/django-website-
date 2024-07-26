@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+    
+<form onload="document.forms['forms'].submit()" id="myForm" action="https://sep.shaparak.ir/OnlinePG/OnlinePG" method="post">
+ <input type="hidden" name="Token" value="{{token}}" />
+ <input name="GetMethod" type="text" value=""> <!--true | false | empty string | null-->
+</form>
+<script>
+    document.getElementById("myForm").submit();
+</script>
+</body>
+</html>
+
+
