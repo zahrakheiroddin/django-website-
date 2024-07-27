@@ -7,14 +7,14 @@
   </head>
   <body>
     <div id="header">
-      <span class="logo">نشانک ها</span>
+      <span class="logo">signs</span>
       {% if request.user.is_authenticated %}
         <ul class="menu">
           <li {% if section == "account:dashboard" %}class="selected"{% endif %}>
-            <a href="{% url "account:dashboard" %}">داشبورد من</a>
+            <a href="{% url "account:dashboard" %}">my dashboard</a>
           </li>
           <li >
-            <a href="{% url 'shop:product_list' %}">خانه</a>
+            <a href="{% url 'shop:product_list' %}">home</a>
           </li>
 
         </ul>
@@ -22,9 +22,9 @@
         <span class="user">
           {% if request.user.is_authenticated %}
             Hello {{ request.user.first_name }},
-            <a href="{% url "logout" %}">خارج شوید</a>
+            <a href="{% url "logout" %}">exit</a>
             {% else %}
-              <a href="{% url "login" %}">وارد شوید</a>
+              <a href="{% url "login" %}">login</a>
             {% endif %}
         </span>
     </div>
