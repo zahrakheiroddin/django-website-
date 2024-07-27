@@ -54,13 +54,13 @@
       <div class="contact-info d-flex align-items-center">
         <i class="bi bi-phone d-none align-items-center"><span>+989906784074</span></i>
         {% if user.is_authenticated %}
-          <a href="{% url 'cart:cart_detail' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">سبد</a>
-          <a href="{% url 'account:profile' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">پروفايل</a>
-          <a href="{% url 'account:dashboard' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">سابقه</a>
-          <a href="{% url 'account:logout' %}" class="book-a-table-btn scrollto  d-lg-flex" style="color:#fff;">خروج</a>
+          <a href="{% url 'cart:cart_detail' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">basket</a>
+          <a href="{% url 'account:profile' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">profile</a>
+          <a href="{% url 'account:dashboard' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">history</a>
+          <a href="{% url 'account:logout' %}" class="book-a-table-btn scrollto  d-lg-flex" style="color:#fff;">exist</a>
         {% else %}
-          <a href="{% url 'account:login' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">ورود</a>
-          <a href="{% url 'account:register' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">عضویت</a>
+          <a href="{% url 'account:login' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">login</a>
+          <a href="{% url 'account:register' %}" class="book-a-table-btn scrollto  d-lg-flex " style="color:#fff;">join</a>
         {% endif %}
       </div>
 
@@ -85,20 +85,20 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="{% url 'shop:product_list' %}">خانه</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#about">درباره ما</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#menu">خودرو</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#specials">برند</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#events">مقالات</a></li>
-          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#chefs">کالاهای پرفروش</a></li>
-          <li class="dropdown"><a href="#"><span>برند</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto active" href="{% url 'shop:product_list' %}">home</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#about">about us</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#menu">auto</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#specials">brand</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#events">documents</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#chefs">popular objects</a></li>
+          <li class="dropdown"><a href="#"><span>brands</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               {% for c in Brands %}
                 <li><a href="{{c.get_absolute_url }}">{{c.name}}</a></li>
               {% endfor %}
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#contact">ارتباط با ما</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'shop:product_list' %}#contact">contact</a></li>
         </ul>
 
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -128,9 +128,9 @@
                 <h3>DOBICHO</h3>
                 <p>
                   <br>
-                  دروازه تهران - خیابان باختر - کوچه حسینی - پلاک 27<br><br>
-                  <strong>تلفن تماس:</strong> 09906784074<br>
-                  <strong>ایمیل:</strong> cor1@apsahi.com<br>
+                  https://github.com/zahrakheiroddin<br><br>
+                  <strong>link:</strong> https://github.com/zahrakheiroddin<br>
+                  <strong>email:</strong> zahrakheiroddin1997@gmail.com<br>
                 </p>
                 <div class="social-links mt-3">
                   <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -145,9 +145,9 @@
             <div class="col-lg-2 col-md-6 footer-links">
               <h4>Useful Links</h4>
               <ul>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">خانه</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">ارتباط با ما</a></li>
-                <li><i class="bx bx-chevron-right"></i> <a href="#">سرویس ها</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">home</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">contact</a></li>
+                <li><i class="bx bx-chevron-right"></i> <a href="#">services</a></li>
 
               </ul>
             </div>
